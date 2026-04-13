@@ -1,28 +1,36 @@
 import { series } from "./data.js";
-import { Serie } from "./serie.js";
 
-const seriesTbody: HTMLElement = document.getElementById("series")!;
+const tableBody: HTMLElement = document.getElementById("series-table-body")!;
 const averageElement: HTMLElement = document.getElementById("average")!;
 
-function renderSeriesInTable(seriesList: Serie[]): void {
-  seriesList.forEach((serie) => {
-    let trElement = document.createElement("tr");
-    trElement.innerHTML = `
-      <th scope="row">${serie.id}</th>
-      <td>${serie.name}</td>
+function renderSeries(): void {
+  series.forEach((serie) => {
+    let row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${serie.id}</td>
+      <td><a href="${serie.webpage}" target="_blank">${serie.name}</a></td>
       <td>${serie.channel}</td>
       <td>${serie.seasons}</td>
     `;
-    seriesTbody.appendChild(trElement);
+
+    tableBody.appendChild(row);
   });
 }
 
-function getAverageSeasons(seriesList: Serie[]): number {
-  let totalSeasons: number = 0;
-  seriesList.forEach((serie) => totalSeasons = totalSeasons + serie.seasons);
-  return totalSeasons / seriesList.length;
+function calcularPromedio(): number {
+  let total = 0;
+
+  series.forEach((serie) => {
+    total += serie.seasons;
+  });
+
+  return total / series.length;
 }
 
-renderSeriesInTable(series);
+function mostrarPromedio(): void {
+  averageElement.innerHTML = `Seasons average: ${calcularPromedio()}`;
+}
 
-averageElement.innerHTML = `Seasons average: ${getAverageSeasons(series)}`;
+renderSeries();
+mostrarPromedio();
