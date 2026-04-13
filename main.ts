@@ -6,14 +6,10 @@ const averageElement: HTMLElement = document.getElementById("average")!;
 function renderSeries(): void {
   series.forEach((serie) => {
     let row = document.createElement("tr");
-
-    row.innerHTML = `
-      <td>${serie.id}</td>
+    row.innerHTML = `<td>${serie.id}</td>
       <td><a href="${serie.webpage}" target="_blank">${serie.name}</a></td>
       <td>${serie.channel}</td>
-      <td>${serie.seasons}</td>
-    `;
-
+      <td>${serie.seasons}</td>`;
     tableBody.appendChild(row);
   });
 }
